@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { useQuotes } from '@/stores/quotes'
 import { storeToRefs } from 'pinia'
+import Button from '@/components/Base/Button.vue'
 
 const store = useQuotes()
+
+const getNewQuote = async () => {
+  await store.getQuote()
+}
 
 const { randomQuote } = storeToRefs(store)
 </script>
@@ -15,6 +20,9 @@ const { randomQuote } = storeToRefs(store)
           {{ randomQuote.quote }}
         </div>
         <div class="random-quote__author">- {{ randomQuote.author }}</div>
+        <div class="random-quote__buttons">
+          <Button @click="getNewQuote">Generate Quote</Button>
+        </div>
       </div>
     </div>
   </div>
@@ -25,7 +33,7 @@ const { randomQuote } = storeToRefs(store)
   &__body {
     background: var(--color-white);
     border-radius: 0.6rem;
-    padding: 3rem 2rem;
+    padding: 3rem 2rem 2rem;
   }
 
   &__quote {
@@ -36,6 +44,12 @@ const { randomQuote } = storeToRefs(store)
 
   &__author {
     text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
   }
 }
 </style>
