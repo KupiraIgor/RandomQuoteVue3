@@ -18,7 +18,7 @@ const copyQuote = () => {
   document.body.appendChild(tempInput)
 
   tempInput.select()
-  tempInput.setSelectionRange(0, 99999) // Для мобільних пристроїв
+  tempInput.setSelectionRange(0, 99999)
 
   document.execCommand('copy')
 
@@ -30,6 +30,16 @@ const copyQuote = () => {
   })
 
   document.body.removeChild(tempInput)
+}
+
+const shareToTelegram = () => {
+  const telegramUrl = `https://t.me/share/url?url=${encodeURIComponent(`${randomQuote.value.quote} ${randomQuote.value.author}`)}`
+  window.open(telegramUrl, '_blank')
+}
+
+const shareToTwitter = () => {
+  const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(`${randomQuote.value.quote} ${randomQuote.value.author}`)}`
+  window.open(twitterUrl, '_blank')
 }
 </script>
 
@@ -49,6 +59,10 @@ const copyQuote = () => {
           <div class="random-quote__buttons">
             <Button @click="copyQuote">Copy quote</Button>
             <Button @click="getNewQuote">Generate Quote</Button>
+          </div>
+          <div class="random-quote__buttons">
+            <Button @click="shareToTelegram">Share to Telegram</Button>
+            <Button @click="shareToTwitter">Share to Twitter</Button>
           </div>
         </div>
       </div>
@@ -81,6 +95,11 @@ const copyQuote = () => {
     display: flex;
     justify-content: center;
     gap: 1rem;
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   &__title {
