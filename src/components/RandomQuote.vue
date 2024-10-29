@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useQuotes } from '@/stores/quotes'
 import { storeToRefs } from 'pinia'
+import { toast } from 'vue3-toastify'
 import Button from '@/components/Base/Button.vue'
 
 const store = useQuotes()
@@ -10,6 +11,26 @@ const getNewQuote = async () => {
 }
 
 const { randomQuote, errorRandomQuote } = storeToRefs(store)
+
+const copyQuote = () => {
+  const tempInput = document.createElement('input')
+  tempInput.value = randomQuote.value.quote
+  document.body.appendChild(tempInput)
+
+  tempInput.select()
+  tempInput.setSelectionRange(0, 99999) // Для мобільних пристроїв
+
+  document.execCommand('copy')
+
+  toast('Quote copied', {
+    autoClose: 1500,
+    hideProgressBar: true,
+    type: 'success',
+    theme: 'colored',
+  })
+
+  document.body.removeChild(tempInput)
+}
 </script>
 
 <template>
@@ -26,6 +47,7 @@ const { randomQuote, errorRandomQuote } = storeToRefs(store)
           </div>
           <div class="random-quote__author">- {{ randomQuote.author }}</div>
           <div class="random-quote__buttons">
+            <Button @click="copyQuote">Copy quote</Button>
             <Button @click="getNewQuote">Generate Quote</Button>
           </div>
         </div>
@@ -58,6 +80,7 @@ const { randomQuote, errorRandomQuote } = storeToRefs(store)
   &__buttons {
     display: flex;
     justify-content: center;
+    gap: 1rem;
   }
 
   &__title {
