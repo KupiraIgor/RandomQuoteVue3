@@ -61,8 +61,12 @@ const shareToTwitter = () => {
             <Button @click="getNewQuote">Generate Quote</Button>
           </div>
           <div class="random-quote__buttons">
-            <Button @click="shareToTelegram">Share to Telegram</Button>
-            <Button @click="shareToTwitter">Share to Twitter</Button>
+            <Button @click="shareToTelegram" color="blue">
+              Share to Telegram
+            </Button>
+            <Button @click="shareToTwitter" color="blue">
+              Share to Twitter
+            </Button>
           </div>
         </div>
       </div>

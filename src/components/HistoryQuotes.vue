@@ -38,7 +38,7 @@ const { quotesHistory } = storeToRefs(store)
 
   &__item {
     border-bottom: 1px solid #b8b8b8;
-    padding: 1rem 0;
+    padding: 1rem;
 
     &-quote {
       position: relative;
