@@ -9,19 +9,25 @@ const getNewQuote = async () => {
   await store.getQuote()
 }
 
-const { randomQuote } = storeToRefs(store)
+const { randomQuote, errorRandomQuote } = storeToRefs(store)
 </script>
 
 <template>
   <div class="random-quote">
     <div class="container">
-      <div v-if="randomQuote" class="random-quote__body">
-        <div class="random-quote__quote">
-          {{ randomQuote.quote }}
+      <div>
+        <h1 class="random-quote__title">Quote Generator</h1>
+        <div v-if="errorRandomQuote" class="random-quote__error">
+          {{ errorRandomQuote.message }}
         </div>
-        <div class="random-quote__author">- {{ randomQuote.author }}</div>
-        <div class="random-quote__buttons">
-          <Button @click="getNewQuote">Generate Quote</Button>
+        <div v-if="randomQuote" class="random-quote__body">
+          <div class="random-quote__quote">
+            {{ randomQuote.quote }}
+          </div>
+          <div class="random-quote__author">- {{ randomQuote.author }}</div>
+          <div class="random-quote__buttons">
+            <Button @click="getNewQuote">Generate Quote</Button>
+          </div>
         </div>
       </div>
     </div>
@@ -30,6 +36,8 @@ const { randomQuote } = storeToRefs(store)
 
 <style scoped lang="scss">
 .random-quote {
+  margin-bottom: 4rem;
+
   &__body {
     background: var(--color-white);
     border-radius: 0.6rem;
@@ -50,6 +58,16 @@ const { randomQuote } = storeToRefs(store)
   &__buttons {
     display: flex;
     justify-content: center;
+  }
+
+  &__title {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  &__error {
+    text-align: center;
+    color: var(--color-red);
   }
 }
 </style>
